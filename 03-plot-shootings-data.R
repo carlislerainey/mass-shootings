@@ -51,14 +51,15 @@ glimpse(full_df)
 
 # compute cumulative sums by president
 gg_df <- full_df %>%
-  group_by(president, party) %>%
-  transmute(days_in_office = date - min(date),
-         cumulative_fatalities = cumsum(n_fatalities),
+  group_by(president, party) %>% 
+  mutate(days_in_office = date - min(date)) %>% 
+  mutate(cumulative_fatalities = cumsum(n_fatalities),
          cumulative_injured = cumsum(n_injured),
          cumulative_mass_shootings = cumsum(n_mass_shootings)) %>%
   glimpse() %>%
   mutate(label = NA,
          label = ifelse(days_in_office == max(days_in_office) & cumulative_fatalities > 100, president, NA)) %>%
+  select(-starts_with("n_")) %>%
   rename(`Total Fatalities from Mass Shootings` = cumulative_fatalities,
          `Total Injuries from Mass Shootings` = cumulative_injured,
          `Total Mass Shootings` = cumulative_mass_shootings) %>%
@@ -81,6 +82,6 @@ ggplot(gg_df, aes(x = days_in_office, y = number, color = party, group = preside
   labs(x = "Days in Office",
        y = "Cumulative Total",
        title = "Mass Shootings Under Bush, Clinton, Obama, and Trump",
-       caption = "Data from MotherJones.com")
+       subtitle = "(with correction for inconsistent definitions over time)",
+       caption = 'Data from MotherJones.com\n"Mass shooting" (as measured here) is a shooting with four or more casualties.')
 ggsave("shootings.png", height = 8, width = 6, scale = 1.1)
-
