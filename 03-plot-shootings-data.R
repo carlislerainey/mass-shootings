@@ -76,11 +76,11 @@ ggplot(gg_df, aes(x = days_in_office, y = number, color = party, group = preside
   geom_line() + 
   theme_ipsum() + 
   scale_x_continuous(limits = c(NA, 3200)) + 
-  geom_text(aes(label = label), box.padding = 0.25, size = 2.5, segment.size = 0.2, vjust = 0.5, hjust = -0.05) + 
+  geom_text(aes(label = label), box.padding = 0.25, size = 2, segment.size = 0.2, vjust = 0.5, hjust = -0.05) + 
   theme(legend.position = "none") + 
   labs(x = "Days in Office",
        y = "Cumulative Total",
        title = "Mass Shootings Under Bush, Clinton, Obama, and Trump",
        caption = "Data from MotherJones.com")
-ggsave("shootings.png", height = 6, width = 6, scale = 1.3)
+ggsave("shootings.png", height = 8, width = 6, scale = 1.1)
 
