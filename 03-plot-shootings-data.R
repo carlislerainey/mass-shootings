@@ -82,4 +82,5 @@ ggplot(gg_df, aes(x = days_in_office, y = number, color = party, group = preside
        y = "Cumulative Total",
        title = "Mass Shootings Under Bush, Clinton, Obama, and Trump",
        caption = "Data from MotherJones.com")
+ggsave("shootings.png", height = 6, width = 6, scale = 1.3)
 
